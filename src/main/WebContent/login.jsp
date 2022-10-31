@@ -46,29 +46,18 @@
 						            </tr>
 						            <tr>
 						                <td>Password:</td>
-						                <td><input type="password" name="password" id="password"
-						                    required /></td>
+						                <td><input type="password" name="password" id="password" required /></td>
 						            </tr>
 						            <tr>
 						                <td></td>
-						                <td><input type="submit" value="Login" /></td>
+						                <td><input style="background-color: #2b6054;" class="btn btn-primary rounded-pill mb-1 mb-lg-0" 
+						                type="submit" value="Login" /></td>
 						            </tr>
 						        </table>
 						    </form>
                             
                             </div>
-                            
-                            
-                            
-                            
-                            
-                            <div class="d-flex flex-column flex-lg-row align-items-center">
-                                <a class="me-lg-3 mb-4 mb-lg-0" href="register.jsp">
-                                    <button style="background-color: #2b6054;" type="button" class="btn btn-primary rounded-pill mb-1 mb-lg-0">
-                                        Login
-                                    </button>
-                                </a>
-                            </div>
+
                         </div>
                     </div>
 

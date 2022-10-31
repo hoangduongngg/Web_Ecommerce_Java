@@ -49,4 +49,25 @@ public class PaymentCardDAO extends DAO{
         }
         return null;
     }
+    
+    public PaymentCard getPaymentCardByID (int id) {
+        String sql = "select * from tblpaymentcard where id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new PaymentCard(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDate(5)
+                );
+            }
+
+        } catch (Exception e) {
+        }
+        return null;
+    }
 }

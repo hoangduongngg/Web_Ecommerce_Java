@@ -1,5 +1,6 @@
 package dao;
 
+import model.Customer;
 import model.Member;
 import model.PaymentCard;
 
@@ -23,6 +24,22 @@ public class CustomerDAO extends DAO{
         }
     }
     
-    
-    
+    public Customer getCustomerByID (int tblMemberid) {
+        String sql = "call getCustomerByID (?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, tblMemberid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Integer paymentCardID =  rs.getInt(2);
+                PaymentCardDAO paymentCardDAO = new PaymentCardDAO();
+                PaymentCard paymentCard = paymentCardDAO.getPaymentCardByID (paymentCardID);
+                
+                return new Customer(paymentCard);
+            }
+        } catch (Exception e) {
+        }
+        return null;
+        
+    }
 }

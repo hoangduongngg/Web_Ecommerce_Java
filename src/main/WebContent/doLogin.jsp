@@ -8,36 +8,36 @@
      Member mb = new Member();
      mb.setUsername(username);
      mb.setPassword(password);
-     Staff st = new Staff();
-     st.setUsername(username);
-     st.setPassword(password);
      
      
      
-     MemberDAO dao = new MemberDAO();
-     boolean kq = dao.checkLogin(mb);
-      
-     // Thoi van nen dung role!!!!!!!!!
+     MemberDAO memberDAO = new MemberDAO();
      
-     if (kq && st.getPosition().equalsIgnoreCase("warehousestaff")) {
-    	 response.sendRedirect("WareHouseStaff\\WareHouseStaffHome.jsp");
+     if (memberDAO.checkMemberExist(mb) == null) { //Sai thong tin
+    	 response.sendRedirect("login.jsp?err=fail");
      }
-     else if (kq && st.getPosition().equalsIgnoreCase("shipper")) {
-    	 response.sendRedirect("Shipper\\ShipperHome.jsp");
+     else{	//User
+    	 mb = memberDAO.checkMemberExist(mb);
+    	 Integer idMember  = mb.getId();
+    	 StaffDAO staffDAO = new StaffDAO();
+    	 Staff staff = staffDAO.getStaffByID (idMember);
+    	 
+    	 if (staff != null) { 	//La nhan vien
+    		 String position = staff.getPosition();
+    		 session.setAttribute("staff", staff);
+    	 	if (position.equalsIgnoreCase("warehousestaff")) {
+    	 		response.sendRedirect("WareHouseStaff\\WareHouseStaffHome.jsp");
+    	 	}
+    	 	else if (position.equalsIgnoreCase("shipper")){
+    	 		response.sendRedirect("Shipper\\ShipperHome.jsp");
+    	 	}
+    	 }
+    	 else {	//La KH
+    		 CustomerDAO customerDAO = new CustomerDAO();
+    		 Customer customer = customerDAO.getCustomerByID(idMember);
+    		 session.setAttribute("customer", customer);
+    		 response.sendRedirect("Customer\\CustomerHome.jsp");
+    	 }
      }
-     else if (kq && st.getPosition()== null) {
-    	 response.sendRedirect("Customer\\CustomerHome.jsp");
-     }
-     
-     /* if(kq && (mb.getvaitro().equalsIgnoreCase("sinhvien"))){
-         session.setAttribute("sinhvien", mb);
-         response.sendRedirect("sv\\gdchinhsv.jsp");
-        
-     }else if(kq &&(mb.getvaitro().equalsIgnoreCase("giangvien"))){
-         session.setAttribute("giangvien", mb);
-         response.sendRedirect("gv\\gdchinhgv.jsp");
-     }else{
-         response.sendRedirect("gddangnhap.jsp?err=fail");
-     } */
      
  %>
