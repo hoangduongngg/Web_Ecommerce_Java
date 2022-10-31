@@ -25,47 +25,18 @@
                     <div class="col-lg-6">
                         <!-- Mashead text and app badges-->
                         <div class="mb-5 mb-lg-0 text-center text-lg-start">
-                            <h1 class="display-1 lh-1 mb-3">Login</h1>
-                            
-                            <div>
-						      <%
-						      if(request.getParameter("err") !=null && request.getParameter("err").equalsIgnoreCase("timeout")){
-						          %> <h4>Time out!</h4><%
-						      }else if(request.getParameter("err") !=null && request.getParameter("err").equalsIgnoreCase("fail")){
-						          %> <h4 style="color: red">Wrong username/password</h4><%
-						      }
-						      %>
-						      
-						
-						
-						    <form name="login" action="doLogin.jsp" method="post">
-						        <table border="0">
-						            <tr>
-						                <td>Username:</td>
-						                <td><input type="text" name="username" id="username" required /></td>
-						            </tr>
-						            <tr>
-						                <td>Password:</td>
-						                <td><input type="password" name="password" id="password"
-						                    required /></td>
-						            </tr>
-						            <tr>
-						                <td></td>
-						                <td><input type="submit" value="Login" /></td>
-						            </tr>
-						        </table>
-						    </form>
-                            
-                            </div>
-                            
-                            
-                            
-                            
-                            
+                            <h1 class="display-1 lh-1 mb-3">Welcome to <br>E-Commerce Supermarket.</h1>
+                            <p class="lead fw-normal text-muted mb-5">Sign in to view product and shopping! <br> If you don't have an account, Register now!</p>
                             <div class="d-flex flex-column flex-lg-row align-items-center">
-                                <a class="me-lg-3 mb-4 mb-lg-0" href="register.jsp">
+                                <a class="me-lg-3 mb-4 mb-lg-0" href="login.jsp">
                                     <button style="background-color: #2b6054;" type="button" class="btn btn-primary rounded-pill mb-1 mb-lg-0">
                                         Login
+                                    </button>
+                                </a>
+
+                                <a class="me-lg-3 mb-4 mb-lg-0" href="register.jsp">
+                                    <button style="background-color: #2b6054;" type="button" class="btn btn-primary rounded-pill mb-1 mb-lg-0">
+                                        Register
                                     </button>
                                 </a>
                             </div>
@@ -77,9 +48,4 @@
         </div>
      
     </body>
-</html>
-
-<body>
-
-</body>
 </html>

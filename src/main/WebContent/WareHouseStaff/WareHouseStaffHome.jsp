@@ -7,8 +7,7 @@
 <title>Web E-commerce Java</title>
 </head>
 <body>
-	<h1>Home</h1>
-	<a href="login.jsp">Login</a>
-	<a href="Customer/register.jsp">Register</a>
+	<h1>WareHouse Home</h1>
+	<a href="WareHouseStaff\\DuyetDon.jsp">Duyet Don</a>
 </body>
 </html>
