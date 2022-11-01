@@ -20,7 +20,7 @@
     	 mb = memberDAO.checkMemberExist(mb);
     	 Integer idMember  = mb.getId();
     	 StaffDAO staffDAO = new StaffDAO();
-    	 Staff staff = staffDAO.getStaffByID (idMember);
+    	 Staff staff = staffDAO.getStaffByID (mb);
     	 
     	 if (staff != null) { 	//La nhan vien
     		 String position = staff.getPosition();
@@ -34,8 +34,9 @@
     	 }
     	 else {	//La KH
     		 CustomerDAO customerDAO = new CustomerDAO();
-    		 Customer customer = customerDAO.getCustomerByID(idMember);
+    		 Customer customer = customerDAO.getCustomerByID(mb);
     		 session.setAttribute("customer", customer);
+    		 System.out.print(customer);
     		 response.sendRedirect("Customer\\CustomerHome.jsp");
     	 }
      }

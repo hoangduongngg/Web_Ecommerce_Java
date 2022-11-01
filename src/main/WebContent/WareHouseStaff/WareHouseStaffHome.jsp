@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h1>WareHouse Home</h1>
+	<h3>Hello ${sessionScope.staff.name} </h3>
 	<a href="WareHouseStaff\\DuyetDon.jsp">Duyet Don</a>
 </body>
 </html>

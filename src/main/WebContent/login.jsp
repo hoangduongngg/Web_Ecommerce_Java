@@ -32,11 +32,10 @@
 						      if(request.getParameter("err") !=null && request.getParameter("err").equalsIgnoreCase("timeout")){
 						          %> <h4>Time out!</h4><%
 						      }else if(request.getParameter("err") !=null && request.getParameter("err").equalsIgnoreCase("fail")){
-						          %> <h4 style="color: red">Wrong username/password</h4><%
+						          %> <h4 style="color: red"> Wrong username/password </h4><%
 						      }
 						      %>
 						      
-						
 						
 						    <form name="login" action="doLogin.jsp" method="post">
 						        <table border="0">
