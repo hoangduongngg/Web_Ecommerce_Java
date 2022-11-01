@@ -24,18 +24,19 @@ public class CustomerDAO extends DAO{
         }
     }
     
-    public Customer getCustomerByID (int tblMemberid) {
+    public Customer getCustomerByID (Member mb) {
         String sql = "call getCustomerByID (?)";
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, tblMemberid);
+            ps.setInt(1, mb.getId());
             rs = ps.executeQuery();
             while (rs.next()) {
                 Integer paymentCardID =  rs.getInt(2);
                 PaymentCardDAO paymentCardDAO = new PaymentCardDAO();
                 PaymentCard paymentCard = paymentCardDAO.getPaymentCardByID (paymentCardID);
                 
-                return new Customer(paymentCard);
+                return new Customer(mb, paymentCard);
+                
             }
         } catch (Exception e) {
         }
