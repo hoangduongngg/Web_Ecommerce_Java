@@ -9,19 +9,15 @@
      mb.setUsername(username);
      mb.setPassword(password);
      
-     
-     
      MemberDAO memberDAO = new MemberDAO();
-     
-     if (memberDAO.checkMemberExist(mb) == null) { //Sai thong tin
+     Boolean checkLogin = memberDAO.checkMemberExist(mb);
+     if (checkLogin == false) { //Sai thong tin
     	 response.sendRedirect("login.jsp?err=fail");
      }
      else{	//User
-    	 mb = memberDAO.checkMemberExist(mb);
     	 Integer idMember  = mb.getId();
     	 StaffDAO staffDAO = new StaffDAO();
     	 Staff staff = staffDAO.getStaffByID (mb);
-    	 
     	 if (staff != null) { 	//La nhan vien
     		 String position = staff.getPosition();
     		 session.setAttribute("staff", staff);

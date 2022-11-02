@@ -11,9 +11,9 @@ public class MemberDAO extends DAO{
     }
     
     
-    public Member checkMemberExist (Member mb) {
+    public boolean checkMemberExist (Member mb) {
         if(mb.getUsername().contains("true") || mb.getUsername().contains("=")||
-              mb.getPassword().contains("true") || mb.getPassword().contains("=")) return null;
+              mb.getPassword().contains("true") || mb.getPassword().contains("=")) return false;
         String sql = "{call checkMemberExist(?,?)}";
         try {
             ps = con.prepareStatement(sql);
@@ -21,21 +21,30 @@ public class MemberDAO extends DAO{
             ps.setString(2, mb.getPassword());
             rs = ps.executeQuery();
             while (rs.next()) {
-                return new Member(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getDate(7),
-                        rs.getString(8)
-                );
+//                return new Member(
+//                        rs.getInt(1),
+//                        rs.getString(2),
+//                        rs.getString(3),
+//                        rs.getString(4),
+//                        rs.getString(5),
+//                        rs.getString(6),
+//                        rs.getDate(7),
+//                        rs.getString(8)
+//                );
+                   mb.setId(rs.getInt("id"));
+                   mb.setUsername(rs.getString("username"));
+                   mb.setPassword(rs.getString("password"));
+                   mb.setName(rs.getString("name"));
+                   mb.setAddress(rs.getString("address"));
+                   mb.setTel(rs.getString("tel"));
+                   mb.setDob(rs.getDate("dob"));
+                   mb.setEmail(rs.getString("email"));
+                   return true;
             }
 
         } catch (Exception e) {
         }
-        return null;
+        return false;
     }
 
     public void addMember (Member mb) {
