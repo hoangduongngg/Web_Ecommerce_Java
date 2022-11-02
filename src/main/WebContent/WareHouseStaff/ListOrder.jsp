@@ -1,0 +1,155 @@
+<%@page import="model.Product"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.ProductDAO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Web E-commerce Java</title>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!------ Include the above in your HEAD tag ---------->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+	<h1>List Order</h1>
+	<h3>Hello ${sessionScope.staff.name} </h3>
+		<div class="container">
+		
+		<!-- Search and Cart -->
+		<div> 
+		<form action="doSearchOrder.jsp" method="post" class="form-inline my-2 my-lg-0">
+            <input  name="orderID" type="text" placeholder="Order ID..." class="form-control-sm">       
+            <input  name="customer_Username" type="text" placeholder="Customer username..." class="form-control-sm">     
+			<div class="input-group-append">
+                                <button type="submit" class="btn btn-dark btn-number">
+                                    <i class="fa fa-search"></i>
+                                </button>
+             </div> 
+             
+			<div class="container overflow-hidden">
+			  <div class="row gx-5">
+			    <div class="col-3">
+			     <div class="p-3 border bg-light">
+					     	<p>Order Status: </p>
+						<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						  <label class="form-check-label" for="flexCheckDefault">
+						    Cart
+						  </label>
+						</div>
+						
+						<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						  <label class="form-check-label" for="flexCheckDefault">
+						    Order
+						  </label>
+						</div>
+						
+						<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						  <label class="form-check-label" for="flexCheckDefault">
+						    Waiting for Payment
+						  </label>
+						</div>
+						
+						<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						  <label class="form-check-label" for="flexCheckDefault">
+						    Bill
+						  </label>
+						</div>
+			     </div>
+			    </div>
+			    <div class="col-3">
+			      <div class="p-3 border bg-light">
+				      <p> Delivery Status: </p>
+					<div class="form-check">
+					  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+					  <label class="form-check-label" for="flexCheckDefault">
+					    Preparing
+					  </label>
+					</div>
+					
+					<div class="form-check">
+					  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+					  <label class="form-check-label" for="flexCheckDefault">
+					    Delivering
+					  </label>
+					</div>
+					
+					<div class="form-check">
+					  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+					  <label class="form-check-label" for="flexCheckDefault">
+					    Delivered
+					  </label>
+					</div>
+				
+				
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<div>
+				
+			</div>
+			
+			<div>
+				
+			</div>
+			
+			
+
+                       
+        </form>
+		</div>
+		
+		
+		<%
+			ProductDAO productDAO = new ProductDAO();
+			List <Product> listP = productDAO.getHomeProduct();
+			request.setAttribute("listP", listP);
+		%>
+		
+		
+		<!-- Order -->
+		<div>
+			<table class="table">
+			  <tbody>
+			    <tr class="table-active">
+			      <th scope="row">ID Order</th>
+			      <td colspan="2" class="table-active">Customer</td>
+			      <td>Order status</td>
+			      <td>Delivery status</td>
+			      <td>Order Date</td>
+			      <td>Total</td>
+			      <td> </td>
+			    </tr>
+			    <tr>
+			      <th scope="row">1</th>
+			      <td colspan="2">hoangduong</td>
+			      <td>Bill</td>
+			      <td>Delivered</td>
+			      <td>2022-01-01</td>
+			      <td>100$</td>
+			      <td><a href="OrderDetail.jsp?OrderID=${order.id}">Detail</a></td>
+			    </tr>
+			    
+			  </tbody>
+			</table>
+		</div>
+		<!-- EndOrderList -->
+        </div> 
+		
+</body>
+</html>

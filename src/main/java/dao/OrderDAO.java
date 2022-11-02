@@ -10,33 +10,28 @@ public class OrderDAO extends DAO{
         
     }
     
-//    public Order getCardByCustomer (Customer customer) {
-//        String sql = "select * from tblOrder where tblCustomerid = ?";
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(1, customer.getId());
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
+    public Order getCardByCustomer (Customer customer) {
+        String sql = "select * from tblOrder where tblCustomerid = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, customer.getId());
+            rs = ps.executeQuery();
+            while (rs.next()) {
 //                Float totalAmount;
-//                
-//                
-//                Order order = new Order(
-//                        rs.getInt(1),
-//                        totalAmount,
-//                        rs.getString(2),
-//                        rs.getFloat(4),
-//                        rs.getString(5),
-//                        rs.getString(6),
-//                        rs.getDate(7),
-//                        rs.getDate(8),
-//                        rs.getInt(9)
-//                );
-//                
-//                return p;
-//            }
-//        } catch (Exception e) {
-//        }
-//        
-//        return null;
-//    }
+                
+                
+                Order order = new Order();
+                order.setId(rs.getInt("id"));
+//                order.setTotalAmount(totalAmount);
+                order.setStatusOrder(rs.getString("statusOrder"));
+                order.setNote(rs.getString("note"));
+                order.setCustomer(customer);
+                order.setListOrderDetail(null);
+                return order;
+            }
+        } catch (Exception e) {
+        }
+        
+        return null;
+    }
 }
