@@ -1,6 +1,8 @@
 package dao;
  
 import java.sql.CallableStatement;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Member;
  
@@ -21,16 +23,6 @@ public class MemberDAO extends DAO{
             ps.setString(2, mb.getPassword());
             rs = ps.executeQuery();
             while (rs.next()) {
-//                return new Member(
-//                        rs.getInt(1),
-//                        rs.getString(2),
-//                        rs.getString(3),
-//                        rs.getString(4),
-//                        rs.getString(5),
-//                        rs.getString(6),
-//                        rs.getDate(7),
-//                        rs.getString(8)
-//                );
                    mb.setId(rs.getInt("id"));
                    mb.setUsername(rs.getString("username"));
                    mb.setPassword(rs.getString("password"));
@@ -58,7 +50,6 @@ public class MemberDAO extends DAO{
             cs.setString(5,mb.getTel());
             cs.setDate(6, mb.getDob());
             cs.setString(7,mb.getEmail());
-//            cs.setString(8, mb.getRole());
             cs.executeUpdate();
             
         } catch(Exception e) {
@@ -66,5 +57,54 @@ public class MemberDAO extends DAO{
         }
         
         
+    }
+    
+    public Member getMemberByID (Integer id) {
+        String sql = "select * from tblMember where id = ?";
+        try {
+            ps= con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs= ps.executeQuery();
+            while(rs.next()) {
+                Member mb = new Member();
+                mb.setId(rs.getInt("id"));
+                mb.setUsername(rs.getString("username"));
+                mb.setPassword(rs.getString("password"));
+                mb.setName(rs.getString("name"));
+                mb.setAddress(rs.getString("address"));
+                mb.setTel(rs.getString("tel"));
+                mb.setDob(rs.getDate("dob"));
+                mb.setEmail(rs.getString("email"));
+                
+                return mb;
+            }
+        } catch (Exception e) {
+        }
+       return null;
+    }
+    
+    public List<Member> getMemberByName (String name) {
+        List< Member> list = new ArrayList<>();
+        String sql = "select * from tblMember where name like ?";
+        try {
+            ps= con.prepareStatement(sql);
+            ps.setString(1, "%" + name + "%");
+            rs= ps.executeQuery();
+            while(rs.next()) {
+                Member mb = new Member();
+                mb.setId(rs.getInt("id"));
+                mb.setUsername(rs.getString("username"));
+                mb.setPassword(rs.getString("password"));
+                mb.setName(rs.getString("name"));
+                mb.setAddress(rs.getString("address"));
+                mb.setTel(rs.getString("tel"));
+                mb.setDob(rs.getDate("dob"));
+                mb.setEmail(rs.getString("email"));
+                
+                list.add(mb);
+            }
+        } catch (Exception e) {
+        }
+        return list;
     }
 }

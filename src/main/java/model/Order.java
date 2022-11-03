@@ -15,12 +15,23 @@ public class Order {
     public Order() {
         super();
     }
-    public Order(Integer id, Float totalAmount, String paymentType, Date orderDate, Date paymentDate, Date cancelDate,
+    
+    public Float totalAmountOrder (List <OrderDetail> listOrderDetail) {
+        Float totalAmount = new Float(0);
+        for (int i=0; i<listOrderDetail.size(); i++) {
+            totalAmount += (Float) listOrderDetail.get(i).getPrice() * listOrderDetail.get(i).getQuantity();
+        }
+        return totalAmount;
+        
+        
+    }
+    
+    public Order(Integer id, String paymentType, Date orderDate, Date paymentDate, Date cancelDate,
             Date deliveryDate, String reasonCancel, String statusDelivery, String statusOrder, String note,
             Customer customer, Shipper shipper, List<OrderDetail> listOrderDetail) {
         super();
         this.id = id;
-        this.totalAmount = totalAmount;
+        this.totalAmount = totalAmountOrder(listOrderDetail);
         this.paymentType = paymentType;
         this.orderDate = orderDate;
         this.paymentDate = paymentDate;

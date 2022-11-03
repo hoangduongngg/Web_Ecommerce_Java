@@ -5,7 +5,9 @@ public class Customer extends Member {
 	private PaymentCard paymentCard;
 
 	
-	
+	public Customer() {
+	    
+	}
 	
 	public Customer(Member mb, PaymentCard paymentCard) {
         super();
