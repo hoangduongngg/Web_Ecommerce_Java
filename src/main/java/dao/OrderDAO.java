@@ -14,44 +14,28 @@ public class OrderDAO extends DAO{
         
     }
     
-    public void addtoOrder (OrderDetail od) {
-        
-    }
-    
-    public Order getCardByCustomer (Customer customer) {
-        String sql = "select * from tblOrder where tblCustomerid = ?";
+    public void newCart (Order o) {
+        String sql = "insert into tblOrder (statusOrder, tblCustomerid)"
+                + "values (?, ?)";
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, customer.getId());
-            rs = ps.executeQuery();
-            while (rs.next()) {
-//                Float totalAmount;
-                
-                
-                Order order = new Order();
-                order.setId(rs.getInt("id"));
-//                order.setTotalAmount(totalAmount);
-                order.setStatusOrder(rs.getString("statusOrder"));
-                order.setNote(rs.getString("note"));
-                order.setCustomer(customer);
-                order.setListOrderDetail(null);
-                return order;
-            }
+            ps.setString(1, o.getStatusOrder());
+            ps.setInt(2, o.getCustomer().getId());
+            ps.executeUpdate();
         } catch (Exception e) {
         }
-        
-        return null;
     }
     
-    public List<Order> getListOrderByOrder (Order order) {
-        List <Order> list = new ArrayList<>();
+    
+    public List<Order> getListOrderByOrder (Order o) {
+        List <Order> listOrder = new ArrayList<>();
         String sql = "call getListOrderByOrder(?, ?, ?, ?)";
         try {
             ps= con.prepareStatement(sql);
-            ps.setInt(1, order.getId());
-            ps.setInt(2, order.getCustomer().getId());
-            ps.setString(3, order.getStatusDelivery());
-            ps.setString(4, order.getStatusOrder());
+            ps.setInt(1, o.getId());
+            ps.setInt(2, o.getCustomer().getId());
+            ps.setString(3, o.getStatusDelivery());
+            ps.setString(4, o.getStatusOrder());
             rs = ps.executeQuery();
             while (rs.next()) {
                 
@@ -60,21 +44,26 @@ public class OrderDAO extends DAO{
                Customer customer = customerDAO.getCustomerByID(
                        memberDAO.getMemberByID(rs.getInt("tblCustomerid")));
                 
-              Order o = new Order();
-              o.setId(rs.getInt("id"));
-//              order.setTotalAmount(totalAmount);
-              o.setStatusOrder(rs.getString("statusOrder"));
-              o.setNote(rs.getString("note"));
-              o.setCustomer(customer);
-              o.setListOrderDetail(null);
-              list.add(o);
+               Order order = new Order();
+               order.setId(rs.getInt("id"));
+               order.setStatusOrder(rs.getString("statusOrder"));
+               order.setNote(rs.getString("note"));
+               order.setCustomer(customer);
+               
+               OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+               List<OrderDetail> list = orderDetailDAO.getOrderDetailByOrder(order);
+               order.setListOrderDetail(list);
+               
+               order.setTotalAmount(order.totalAmountOrder(list));
+               
+               listOrder.add(order);
               
             }
             
             
         } catch (Exception e) {
         }
-        return list;
+        return listOrder;
     }
     
     public void updateOrder (Order order) {
@@ -91,7 +80,8 @@ public class OrderDAO extends DAO{
     }
     
     public Order getCartByCustomer (Customer customer) {
-        String sql = "select * from tblOrder where statusOrder = cart and tblCustomerid = ? limit 1";
+        String sql = "select * from tblOrder "
+                + "where statusOrder = cart and tblCustomerid = ? limit 1";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, customer.getId());
@@ -100,20 +90,19 @@ public class OrderDAO extends DAO{
 
                 Order order = new Order();
                 order.setId(rs.getInt("id"));
-                order.setTotalAmount(order.totalAmountOrder(null));
                 order.setStatusOrder(rs.getString("statusOrder"));
                 order.setNote(rs.getString("note"));
                 order.setCustomer(customer);
-                order.setListOrderDetail(null);
                 
                 OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
                 List<OrderDetail> list = orderDetailDAO.getOrderDetailByOrder(order);
                 order.setListOrderDetail(list);
                 
+                order.setTotalAmount(order.totalAmountOrder(list));
+                
                 return order;
             }
         } catch (Exception e) {
-            // TODO: handle exception
         }
         return null;
     }

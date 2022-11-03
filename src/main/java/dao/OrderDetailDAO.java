@@ -11,6 +11,20 @@ public class OrderDetailDAO extends DAO {
     public OrderDetailDAO() {
     }
     
+    public void newOrderDetail (OrderDetail od, Order order) {
+        String sql = "insert into tblOrderDetail (quantity, price, tblProductid, tblOrderid)"
+                + "values (?, ?, ?, ?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, od.getQuantity());
+            ps.setFloat(2, od.getPrice());
+            ps.setInt(3, od.getProduct().getId());
+            ps.setInt(4, order.getId());
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
     public List<OrderDetail> getOrderDetailByOrder(Order order) {
         List <OrderDetail> list = new ArrayList<>();
         String sql = "call getOrderDetailByOrder(?)";
@@ -55,5 +69,26 @@ public class OrderDetailDAO extends DAO {
             ps.executeUpdate();
         } catch (Exception e) {
         }
+    }
+    
+    public OrderDetail getOrderDetailByOrderandProduct (Order order, Product p) {
+        String sql ="select * from tblOrderDetail "
+                + "where tblOrderid = ? and tblProductid = ?";
+        try {
+            ps= con.prepareStatement(sql);
+            ps.setInt(1, order.getId());
+            ps.setInt(2, p.getId());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new OrderDetail(
+                            rs.getInt("id"),
+                            rs.getInt("quantity"),
+                            rs.getFloat("price"),
+                            p
+                        );
+            }
+        } catch (Exception e) {
+        }
+        return null;
     }
 }

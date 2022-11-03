@@ -1,81 +1,59 @@
+<%@page import="dao.ProductDAO"%>
+<%@page import="model.Product"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Web E-commerce Java</title>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!------ Include the above in your HEAD tag ---------->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-	     <div class="shopping-cart">
-                <div class="px-4 px-lg-0">
+	<h1>Product Detail</h1>
 
-                    <div class="pb-5">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-
-                                    <!-- Shopping cart table -->
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <h3>${mess}</h3>
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col" class="border-0 bg-light">
-                                                        <div class="p-2 px-3 text-uppercase">Product</div>
-                                                    </th>
-                                                    <th scope="col" class="border-0 bg-light">
-                                                        <div class="py-2 text-uppercase">Price</div>
-                                                    </th>
-                                                    <th scope="col" class="border-0 bg-light">
-                                                        <div class="py-2 text-uppercase">Quantity</div>
-                                                    </th>
-                                                    <th scope="col" class="border-0 bg-light">
-                                                        <div class="py-2 text-uppercase"> </div>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach items="${listItem}" var="o">
-                                                <tr>
-                                                    <th scope="row">
-                                                        <div class="p-2">
-                                                            <img src="${o.getProduct().image}" alt="" width="70" class="img-fluid rounded shadow-sm">
-                                                            <div class="ml-3 d-inline-block align-middle">
-                                                                <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">${o.getProduct().name}</a></h5><span class="text-muted font-weight-normal font-italic"></span>
-                                                            </div>
-                                                        </div>
-                                                    </th>
-                                                    <td class="align-middle"><strong>${o.price}$</strong></td>
-                                                    <td class="align-middle">
-                                                            <a href="cartIncDecQuantity?action=dec&ProductID=${o.getProduct().id}"><button class="btnSub">-</button></a> 
-                                                            <strong>${o.quantity}</strong>
-                                                            <a href="cartIncDecQuantity?action=inc&ProductID=${o.getProduct().id}"><button class="btnAdd">+</button></a>
-                                                    </td>
-                                                    <td class="align-middle">
-                                                        <a href="cartIncDecQuantity?action=Delete&ProductID=${o.getProduct().id}" class="text-dark">
-                                                            <button type="button" class="btn btn-danger">Delete</button>
-                                                        </a>
-                                                    </td>
-                                                </tr> 
-                                            </c:forEach>
-                                                <td class="align-middle">
-                                                    <form action="payment" method="post">
-                                                       <button type="submit" class="btn btn-danger">Payment</button>
-                                                    </form>
-                                                </td>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                            
-                                <!-- End -->
+		<div class="container">
+		
+		<!-- Search and Cart -->
+		<div> 
+		<form action="doSearchHome.jsp" method="post" class="form-inline my-2 my-lg-0">
+                        <!--Search-->
+                        <div class="input-group input-group-sm">
+                            <input  name="txtSearch" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-dark btn-number">
+                                    <i class="fa fa-search"></i>
+                                </button>
                             </div>
                         </div>
+                        <!--Cart-->
+                        <a class="btn btn-sm ml-3" href="cart" style="background: #000; color: white; border-radius: 0px; ">
+                            <i class="fa fa-shopping-cart"></i> Cart
+                            <!--<span class="badge badge-light">0</span>-->
+                        </a>
+        </form>
+		</div>
+		<!-- End Search and Cart -->
+		
+		<%
+			
+			
+		%>
+		
+		
 
-
-                    </div>
-                </div>
-            </div>
-        </div>
+       </div>
+		
 </body>
 </html>

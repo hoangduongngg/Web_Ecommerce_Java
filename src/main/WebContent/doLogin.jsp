@@ -32,7 +32,6 @@
     		 CustomerDAO customerDAO = new CustomerDAO();
     		 Customer customer = customerDAO.getCustomerByID(mb);
     		 session.setAttribute("customer", customer);
-    		 System.out.print(customer);
     		 response.sendRedirect("Customer\\CustomerHome.jsp");
     	 }
      }
