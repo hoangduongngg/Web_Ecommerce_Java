@@ -24,6 +24,7 @@
 	Order order = orderDAO.getCartByCustomer(customer);
 	if (order == null) { //Chua co gio hang -> Khoi tao
 		//Set value + Inseart to DB
+		order = new Order();
 		order.setStatusOrder("cart");
 		order.setCustomer(customer);
 		orderDAO.newCart(order);
@@ -31,7 +32,6 @@
 				//Use method ListOrderByOrder, but result returns a list, so get(0) from list hehee =))))
 		order = orderDAO.getListOrderByOrder(order).get(0);
 	}
-	
 	// Get List OrderDetail
 /* 	 */
 
@@ -43,6 +43,7 @@
 		orderDetailDAO.updateQuantityOrderDetail(od);
 	}
 	else {	// Create new OrderDetail.
+		od = new OrderDetail();
 		od.setQuantity(1);
 		od.setPrice(p.getPrice());
 		od.setProduct(p);

@@ -21,7 +21,7 @@
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-	<h1>Product Detail</h1>
+	<h1>Cart:</h1>
 
 		<div class="container">
 		

@@ -81,7 +81,7 @@ public class OrderDAO extends DAO{
     
     public Order getCartByCustomer (Customer customer) {
         String sql = "select * from tblOrder "
-                + "where statusOrder = cart and tblCustomerid = ? limit 1";
+                + "where statusOrder = 'cart' and tblCustomerid = ? limit 1";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, customer.getId());
