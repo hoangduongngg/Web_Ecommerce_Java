@@ -16,7 +16,7 @@ public class OrderDAO extends DAO{
     
     public void newCart (Order o) {
         String sql = "insert into tblOrder (statusOrder, tblCustomerid)"
-                + "values (?, ?)";
+                + " values (?, ?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, o.getStatusOrder());
@@ -80,8 +80,8 @@ public class OrderDAO extends DAO{
     }
     
     public Order getCartByCustomer (Customer customer) {
-        String sql = "select * from tblOrder "
-                + "where statusOrder = 'cart' and tblCustomerid = ? limit 1";
+        String sql = "select * from tblOrder"
+                + " where statusOrder = 'cart' and tblCustomerid = ? limit 1";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, customer.getId());

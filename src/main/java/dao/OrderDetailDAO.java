@@ -13,7 +13,7 @@ public class OrderDetailDAO extends DAO {
     
     public void newOrderDetail (OrderDetail od, Order order) {
         String sql = "insert into tblOrderDetail (quantity, price, tblProductid, tblOrderid)"
-                + "values (?, ?, ?, ?)";
+                + " values (?, ?, ?, ?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, od.getQuantity());
@@ -48,9 +48,7 @@ public class OrderDetailDAO extends DAO {
     }
     
     public void updateQuantityOrderDetail (OrderDetail od) {
-        String sql = "update tblOrderDetail"
-                + " set quantity = ?"
-                + "where id = ?";
+        String sql = "update tblOrderDetail set quantity = ? where id = ?;";
         try {
             ps= con.prepareStatement(sql);
             ps.setInt(1, od.getQuantity());
@@ -62,7 +60,7 @@ public class OrderDetailDAO extends DAO {
     
     public void deleteOrderDetail (OrderDetail od) {
         String sql = "delete from tblOrderDetail"
-                + "where id = ?";
+                + " where id = ?";
         try {
             ps= con.prepareStatement(sql);
             ps.setInt(1, od.getId());
@@ -72,8 +70,8 @@ public class OrderDetailDAO extends DAO {
     }
     
     public OrderDetail getOrderDetailByOrderandProduct (Order order, Product p) {
-        String sql ="select * from tblOrderDetail "
-                + "where tblOrderid = ? and tblProductid = ?";
+        String sql ="select * from tblOrderDetail"
+                + " where tblOrderid = ? and tblProductid = ?";
         try {
             ps= con.prepareStatement(sql);
             ps.setInt(1, order.getId());

@@ -30,7 +30,7 @@
 		orderDAO.newCart(order);
 		//Get from DB to have ID
 				//Use method ListOrderByOrder, but result returns a list, so get(0) from list hehee =))))
-		order = orderDAO.getListOrderByOrder(order).get(0);
+		order = orderDAO.getCartByCustomer(customer);
 	}
 	// Get List OrderDetail
 /* 	 */
@@ -39,8 +39,10 @@
 	OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
 	OrderDetail od = orderDetailDAO.getOrderDetailByOrderandProduct(order, p);
 	if (od != null) { 		//alredy exist
+		System.out.println(od);
 		od.setQuantity(od.getQuantity()+1);
 		orderDetailDAO.updateQuantityOrderDetail(od);
+		System.out.println(od);
 	}
 	else {	// Create new OrderDetail.
 		od = new OrderDetail();
@@ -50,7 +52,6 @@
 		orderDetailDAO.newOrderDetail(od, order);
 		//od = orderDetailDAO.getOrderDetailByOrderandProduct(cart, p);	//Cap nhat ID
 	}
-	
 	List<OrderDetail> list_od = orderDetailDAO.getOrderDetailByOrder(order);
    
 	session.setAttribute("order", order);
