@@ -89,4 +89,28 @@ public class OrderDetailDAO extends DAO {
         }
         return null;
     }
+    
+    public OrderDetail getOrderDetailByID (Integer id) {
+        String sql ="select * from tblOrderDetail"
+                + " where id = ?";
+        try {
+            ps= con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductDAO productDAO = new ProductDAO();
+                Product p = productDAO.getProductbyID(rs.getInt("tblProductid"));
+                return new OrderDetail(
+                            rs.getInt("id"),
+                            rs.getInt("quantity"),
+                            rs.getFloat("price"),
+                            p
+                        );
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+    
+    
 }
