@@ -27,7 +27,7 @@ public class OrderDetailDAO extends DAO {
     
     public List<OrderDetail> getOrderDetailByOrder(Order order) {
         List <OrderDetail> list = new ArrayList<>();
-        String sql = "call getOrderDetailByOrder(?)";
+        String sql = "select * from tblOrderDetail where tblOrderid = ?";
         try {
             ps= con.prepareStatement(sql);
             ps.setInt(1, order.getId());

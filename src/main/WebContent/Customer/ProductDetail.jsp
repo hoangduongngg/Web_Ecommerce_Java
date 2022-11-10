@@ -38,7 +38,7 @@
                             </div>
                         </div>
                         <!--Cart-->
-                        <a class="btn btn-sm ml-3" href="cart" style="background: #000; color: white; border-radius: 0px; ">
+                        <a class="btn btn-sm ml-3" href="Order.jsp" style="background: #000; color: white; border-radius: 0px; ">
                             <i class="fa fa-shopping-cart"></i> Cart
                             <!--<span class="badge badge-light">0</span>-->
                         </a>

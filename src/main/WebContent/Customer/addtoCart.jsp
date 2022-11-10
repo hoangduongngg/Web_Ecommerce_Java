@@ -39,10 +39,8 @@
 	OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
 	OrderDetail od = orderDetailDAO.getOrderDetailByOrderandProduct(order, p);
 	if (od != null) { 		//alredy exist
-		System.out.println(od);
 		od.setQuantity(od.getQuantity()+1);
 		orderDetailDAO.updateQuantityOrderDetail(od);
-		System.out.println(od);
 	}
 	else {	// Create new OrderDetail.
 		od = new OrderDetail();
@@ -53,9 +51,8 @@
 		//od = orderDetailDAO.getOrderDetailByOrderandProduct(cart, p);	//Cap nhat ID
 	}
 	List<OrderDetail> list_od = orderDetailDAO.getOrderDetailByOrder(order);
-   
-	session.setAttribute("order", order);
 	session.setAttribute("list_od", list_od);
+	session.setAttribute("order", order);
 	response.sendRedirect("Order.jsp");
    
    %>
