@@ -27,6 +27,12 @@
          <link href="../asset/css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+		<%
+			Customer customer = (Customer) session.getAttribute("customer");
+			if (customer == null) {
+				response.sendRedirect("../");
+			}
+		%>
 	<jsp:include page="../navbar.jsp" /> 
 	<!-- <h1>Cart:</h1> -->
 	<%
@@ -58,11 +64,6 @@
 		<!-- End Search and Cart -->
 		
 		<%	
-			Customer customer = (Customer) session.getAttribute("customer");
-		
-			if (customer == null) {
-				response.sendRedirect("../index.jsp");
-			}
 			OrderDAO orderDAO = new OrderDAO();
 			Order order = orderDAO.getCartByCustomer(customer);
 			

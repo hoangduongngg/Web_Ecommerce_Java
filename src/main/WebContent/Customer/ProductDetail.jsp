@@ -1,3 +1,4 @@
+<%@page import="model.Customer"%>
 <%@page import="dao.ProductDAO"%>
 <%@page import="model.Product"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -21,6 +22,13 @@
         <link href="../asset/css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+
+		<%
+			Customer customer = (Customer) session.getAttribute("customer");
+			if (customer == null) {
+				response.sendRedirect("../");
+			}
+		%>
 	<jsp:include page="../navbar.jsp" />  
 	<h1>Product Detail</h1>
 

@@ -25,8 +25,11 @@
                 	
                 	if (member != null) { %>
 	                    <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
-	                        <li class="nav-item"><a class="nav-link me-lg-3" href="#">Hello ${member.name}</a></li>
+	                        <li class="nav-item"><a class="nav-link me-lg-3" href="#">Hello, ${member.name}</a></li>
+	                    	<li class="nav-item"><a class="nav-link me-lg-3" href="../doLogOut.jsp" style="opacity: 50%">Logout</a></li>
 	                    </ul>
+	                   
+	                    
                     <% } %>
                     
                     

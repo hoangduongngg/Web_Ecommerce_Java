@@ -1,3 +1,4 @@
+<%@page import="model.Customer"%>
 <%@page import="model.Product"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.ProductDAO"%>
@@ -20,8 +21,18 @@
         <!------ Include the above in your HEAD tag ---------->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link href="../asset/css/style.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
+		<%
+			Customer customer = (Customer) session.getAttribute("customer");
+			if (customer == null) {
+				response.sendRedirect("../");
+			}
+			ProductDAO productDAO = new ProductDAO();
+			List <Product> listP = productDAO.getHomeProduct();
+			request.setAttribute("listP", listP);
+		%>
 	<jsp:include page="../navbar.jsp" />  
 	<h1 >Customer Home</h1>
 		<div class="container">
@@ -47,11 +58,7 @@
 		</div> -->
 		
 		
-		<%
-			ProductDAO productDAO = new ProductDAO();
-			List <Product> listP = productDAO.getHomeProduct();
-			request.setAttribute("listP", listP);
-		%>
+		
 		
 		
 		<!-- Product -->

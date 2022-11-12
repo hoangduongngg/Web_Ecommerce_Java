@@ -1,3 +1,4 @@
+<%@page import="model.Customer"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -13,6 +14,13 @@
          <link href="../asset/css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+
+		<%
+			Customer customer = (Customer) session.getAttribute("customer");
+			if (customer == null) {
+				response.sendRedirect("../");
+			}
+		%>
 	<jsp:include page="../navbar.jsp" /> 
 	<p></p>
 	<div class = "container pt-5 mx-5">

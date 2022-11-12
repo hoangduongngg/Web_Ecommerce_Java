@@ -28,6 +28,8 @@
          <link href="../asset/css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+
+
 <jsp:include page="../navbar.jsp" /> 
 	<h1>Checkout Payment:</h1>
 
@@ -56,18 +58,24 @@
 		
 		<%	
 			Customer customer = (Customer) session.getAttribute("customer");
-			Order order = (Order) session.getAttribute("order"); //Order -> Not Cart: Because after click Chechout, Cart-> Order
-			/* OrderDAO orderDAO = new OrderDAO();
-			Order order = orderDAO.getCartByCustomer(customer); */
-			PaymentCard paymentCard = customer.getPaymentCard();
+			if (customer == null) {
+				response.sendRedirect("../");
+			}
+			else {
+				Order order = (Order) session.getAttribute("order"); //Order -> Not Cart: Because after click Chechout, Cart-> Order
+				/* OrderDAO orderDAO = new OrderDAO();
+				Order order = orderDAO.getCartByCustomer(customer); */
+				PaymentCard paymentCard = customer.getPaymentCard();
+				
+				OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+				List<OrderDetail> list_od = orderDetailDAO.getOrderDetailByOrder(order);
+				
+				request.setAttribute("paymentCard", paymentCard);
+				request.setAttribute("customer", customer);
+				request.setAttribute("order", order);
+				request.setAttribute("list_od", list_od); ;
+			}
 			
-			OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-			List<OrderDetail> list_od = orderDetailDAO.getOrderDetailByOrder(order);
-			
-			request.setAttribute("paymentCard", paymentCard);
-			request.setAttribute("customer", customer);
-			request.setAttribute("order", order);
-			request.setAttribute("list_od", list_od); ;
 		%>
 		<!-- Cart -->
 		<div class="container py-5 h-100">
