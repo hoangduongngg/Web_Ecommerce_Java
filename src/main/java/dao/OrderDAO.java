@@ -59,20 +59,27 @@ public class OrderDAO extends DAO{
                listOrder.add(order);
               
             }
-            
-            
         } catch (Exception e) {
         }
         return listOrder;
     }
     
     public void updateOrder (Order order) {
-        String sql = "call updateOrder(?, ?)";
+        String sql = "call updateOrder(?,?,?,?,?,?,?,?,?,?,?)"; // 12 gia tri
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, order.getId());
-            ps.setString(2, order.getStatusDelivery());
-            ps.setString(3, order.getStatusOrder());
+            ps.setString(2, order.getPaymentType());
+            ps.setDate(3, order.getOrderDate());
+            ps.setDate(4, order.getPaymentDate());
+            ps.setDate(5, order.getCancelDate());
+            ps.setDate(6, order.getDeliveryDate());
+            ps.setString(7, order.getReasonCancel());
+            ps.setString(8, order.getStatusDelivery());
+            ps.setString(9, order.getStatusOrder());
+            ps.setString(10, order.getNote());
+            ps.setInt(11, order.getShipper().getId());
+            ps.setInt(12, order.getSupplier().getId());
             ps.executeUpdate();
                 
         } catch (Exception e) {
@@ -106,6 +113,8 @@ public class OrderDAO extends DAO{
         }
         return null;
     }
+    
+    
     
     
 }

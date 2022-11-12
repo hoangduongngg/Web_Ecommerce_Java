@@ -50,7 +50,9 @@
 		orderDetailDAO.newOrderDetail(od, order);
 		//od = orderDetailDAO.getOrderDetailByOrderandProduct(cart, p);	//Cap nhat ID
 	}
+	
 	List<OrderDetail> list_od = orderDetailDAO.getOrderDetailByOrder(order);
+	order.setListOrderDetail(list_od);
 	session.setAttribute("list_od", list_od);
 	session.setAttribute("order", order);
 	response.sendRedirect("Order.jsp");

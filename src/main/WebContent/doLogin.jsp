@@ -31,6 +31,7 @@
     	 else {	//La KH
     		 CustomerDAO customerDAO = new CustomerDAO();
     		 Customer customer = customerDAO.getCustomerByID(mb);
+    		 session.setAttribute("member", mb);
     		 session.setAttribute("customer", customer);
     		 response.sendRedirect("Customer\\CustomerHome.jsp");
     	 }

@@ -28,17 +28,14 @@
 </head>
 <body>
 	<jsp:include page="../navbar.jsp" /> 
-	<!-- <h1>Cart:</h1> -->
-	<%
-		if (request.getAttribute("mess") != null && request.getAttribute("mess").equals("empty"))  { %>
-		<p style="color: red"> Can't checkout, your cart is empty!</p> 
-	<% } %>
+	<h1>Order:</h1>
+
 		<div class="container">
 		
 		<!-- Search and Cart -->
-		<!-- <div> 
+		<div> 
 		<form action="doSearchHome.jsp" method="post" class="form-inline my-2 my-lg-0">
-                        Search
+                        <!--Search-->
                         <div class="input-group input-group-sm">
                             <input  name="txtSearch" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
                             <div class="input-group-append">
@@ -47,28 +44,35 @@
                                 </button>
                             </div>
                         </div>
-                        Cart
+                        <!--Cart-->
                         <a class="btn btn-sm ml-3" href="Order.jsp" style="background: #000; color: white; border-radius: 0px; ">
                             <i class="fa fa-shopping-cart"></i> Cart
-                            <span class="badge badge-light">0</span>
+                            <!--<span class="badge badge-light">0</span>-->
+                        </a>
+                        
+                        <!--Order-->
+                        <a class="btn btn-sm ml-3" href="Order_order.jsp" style="background: #000; color: white; border-radius: 0px; ">
+                            <i class="fa fa-shopping-cart"></i> Order
+                            <!--<span class="badge badge-light">0</span>-->
                         </a>
                         
         </form>
-		</div> -->
+		</div>
 		<!-- End Search and Cart -->
 		
 		<%	
 			Customer customer = (Customer) session.getAttribute("customer");
-		
-			if (customer == null) {
-				response.sendRedirect("../index.jsp");
-			}
 			OrderDAO orderDAO = new OrderDAO();
 			Order order = orderDAO.getCartByCustomer(customer);
 			
 			OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
 			List<OrderDetail> list_od = orderDetailDAO.getOrderDetailByOrder(order);
-
+/* 			List <OrderDetail> list_od = (List) session.getAttribute("list_od");
+ note: Get List Order truc tiep tu DB de neu o Home cung co the xem cart chu khong can addtoCart*/			
+ 			/* for (int i = 0; i<list_od.size(); i++) {
+			System.out.println(list_od.get(i));
+ 				
+ 			} */
 			request.setAttribute("customer", customer);
 			request.setAttribute("order", order);
 			request.setAttribute("list_od", list_od); 
@@ -108,7 +112,7 @@
 			                      style="width: 120px;" alt="Book">
 			                      
 			                    <div class="flex-column ms-4">
-			                       <p class="mb-2" style="color:#2b6054; text-decoration: none;">${od.product.name}</p>
+			                       <p class="mb-2">${od.product.name}</p>
 			                    </div>
 			                  </div>
 			                </a>
@@ -193,9 +197,9 @@
 			                </div>
 			
 			                <a href="doBuy.jsp">
-				                <button type="button" class="btn btn-primary btn-block btn-lg" style="background-color:#2b6054; color: white;">
+				                <button type="button" class="btn btn-primary btn-block btn-lg">
 				                  <div class="d-flex justify-content-between">
-				                    <span>Checkout now!</span>
+				                    <span>Checkout now</span>
 				                    
 				                  </div>
 				                </button>

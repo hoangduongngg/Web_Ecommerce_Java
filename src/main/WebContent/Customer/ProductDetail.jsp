@@ -18,17 +18,18 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!------ Include the above in your HEAD tag ---------->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="../asset/css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+	<jsp:include page="../navbar.jsp" />  
 	<h1>Product Detail</h1>
 
 		<div class="container">
 		
 		<!-- Search and Cart -->
-		<div> 
+		<!-- <div> 
 		<form action="doSearchHome.jsp" method="post" class="form-inline my-2 my-lg-0">
-                        <!--Search-->
+                        Search
                         <div class="input-group input-group-sm">
                             <input  name="txtSearch" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
                             <div class="input-group-append">
@@ -37,13 +38,13 @@
                                 </button>
                             </div>
                         </div>
-                        <!--Cart-->
+                        Cart
                         <a class="btn btn-sm ml-3" href="Order.jsp" style="background: #000; color: white; border-radius: 0px; ">
                             <i class="fa fa-shopping-cart"></i> Cart
-                            <!--<span class="badge badge-light">0</span>-->
+                            <span class="badge badge-light">0</span>
                         </a>
         </form>
-		</div>
+		</div> -->
 		
 		
 		<%
@@ -63,8 +64,8 @@
                             <div class="row">
                                 <aside class="col-sm-5 border-right">
                                     <article class="gallery-wrap"> 
-                                        <div class="img-big-wrap">
-                                            <div> <a href="#"><img src="${p.img}"></a></div>
+                                        <div class="img-small-wrap">
+                                            <div > <a href="#"><img src="${p.img}" style = "width:100%;"></a></div>
                                         </div> <!-- slider-product.// -->
                                         
                                     </article> <!-- gallery-wrap .end// -->
@@ -75,7 +76,7 @@
 
                                         <p class="price-detail-wrap"> 
                                             <span class="price h3 text-warning"> 
-                                                <span class="num">${p.price}</span>
+                                                <span class="num" style="color:#2b6054">${p.price} $</span>
                                             </span> 
                                             <!--<span>/per kg</span>--> 
                                         </p> <!-- price-detail-wrap .// -->
@@ -85,7 +86,8 @@
                                         </dl>
 
                                         <hr>
-                                        <a href="addtoCart.jsp?ProductID=${p.id}" class="btn btn-sm btn-outline-primary text-uppercase"> Add to cart </a>
+                                        <a href="addtoCart.jsp?ProductID=${p.id}" class="btn btn-sm btn-outline-primary text-uppercase" style="background-color: #2b6054 ; color: white; "> 
+                                        	Add to cart </a>
                                     </article> <!-- card-body.// -->
                                 </aside> <!-- col.// -->
 

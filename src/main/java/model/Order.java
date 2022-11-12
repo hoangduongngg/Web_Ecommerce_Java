@@ -11,6 +11,7 @@ public class Order {
 	private String reasonCancel, statusDelivery, statusOrder, note;
 	private Customer customer;
 	private Shipper shipper;
+	private Supplier supplier;
 	private  List <OrderDetail> listOrderDetail;
     public Order() {
         super();
@@ -22,13 +23,11 @@ public class Order {
             totalAmount += (Float) listOrderDetail.get(i).getPrice() * listOrderDetail.get(i).getQuantity();
         }
         return totalAmount;
-        
-        
     }
     
     public Order(Integer id, String paymentType, Date orderDate, Date paymentDate, Date cancelDate,
             Date deliveryDate, String reasonCancel, String statusDelivery, String statusOrder, String note,
-            Customer customer, Shipper shipper, List<OrderDetail> listOrderDetail) {
+            Customer customer, Shipper shipper, Supplier supplier,  List<OrderDetail> listOrderDetail) {
         super();
         this.id = id;
         this.totalAmount = totalAmountOrder(listOrderDetail);
@@ -43,8 +42,18 @@ public class Order {
         this.note = note;
         this.customer = customer;
         this.shipper = shipper;
+        this.supplier = supplier;
         this.listOrderDetail = listOrderDetail;
     }
+    
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
     public Integer getId() {
         return id;
     }

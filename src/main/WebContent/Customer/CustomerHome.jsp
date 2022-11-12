@@ -19,17 +19,17 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!------ Include the above in your HEAD tag ---------->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="../asset/css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-	<h1>Customer Home</h1>
-	<h3>Hello ${sessionScope.customer.name} </h3>
+	<jsp:include page="../navbar.jsp" />  
+	<h1 >Customer Home</h1>
 		<div class="container">
 		
 		<!-- Search and Cart -->
-		<div> 
+		<!-- <div> 
 		<form action="doSearchHome.jsp" method="post" class="form-inline my-2 my-lg-0">
-                        <!--Search-->
+                        Search
                         <div class="input-group input-group-sm">
                             <input  name="txtSearch" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
                             <div class="input-group-append">
@@ -38,13 +38,13 @@
                                 </button>
                             </div>
                         </div>
-                        <!--Cart-->
+                        Cart
                         <a class="btn btn-sm ml-3" href="Order.jsp" style="background: #000; color: white; border-radius: 0px; ">
                             <i class="fa fa-shopping-cart"></i> Cart
-                            <!--<span class="badge badge-light">0</span>-->
+                            <span class="badge badge-light">0</span>
                         </a>
         </form>
-		</div>
+		</div> -->
 		
 		
 		<%
@@ -61,14 +61,14 @@
                         <div class="col-sm-12">
                             <div class="row">
                             <c:forEach items="${listP}" var="p">
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4" style="width: 25%; ">
                                 
                                     <div class="card">
-                                        <img class="card-img-top" src="${p.img}">
+                                        <img class="card-img-top " src="${p.img}" >
 
                                         <div class="card-body">
                                             <h4 class="card-title show_txt">
-                                                <a href="ProductDetail.jsp?ProductID=${p.id}" title="View Product">${p.name}</a>
+                                                <a href="ProductDetail.jsp?ProductID=${p.id}" style="text-decoration: none; color:#2b6054">${p.name}</a>
                                             </h4>
                                             <div class="row">
                                                 <div class="col">
