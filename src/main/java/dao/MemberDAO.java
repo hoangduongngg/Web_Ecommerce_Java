@@ -83,6 +83,30 @@ public class MemberDAO extends DAO{
        return null;
     }
     
+    public Member getMemberByUsername (String username) {
+        String sql = "select * from tblMember where username = ?";
+        try {
+            ps= con.prepareStatement(sql);
+            ps.setString(1, username);
+            rs= ps.executeQuery();
+            while(rs.next()) {
+                Member mb = new Member();
+                mb.setId(rs.getInt("id"));
+                mb.setUsername(rs.getString("username"));
+                mb.setPassword(rs.getString("password"));
+                mb.setName(rs.getString("name"));
+                mb.setAddress(rs.getString("address"));
+                mb.setTel(rs.getString("tel"));
+                mb.setDob(rs.getDate("dob"));
+                mb.setEmail(rs.getString("email"));
+                
+                return mb;
+            }
+        } catch (Exception e) {
+        }
+       return null;
+    }
+    
     public List<Member> getMemberByName (String name) {
         List< Member> list = new ArrayList<>();
         String sql = "select * from tblMember where name like ?";

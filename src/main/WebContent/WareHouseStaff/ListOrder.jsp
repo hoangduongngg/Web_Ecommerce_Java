@@ -1,3 +1,7 @@
+<%@page import="model.Customer"%>
+<%@page import="model.Order"%>
+<%@page import="dao.OrderDAO"%>
+<%@page import="model.WareHouseStaff"%>
 <%@page import="model.Product"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.ProductDAO"%>
@@ -13,24 +17,43 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Web E-commerce Java</title>
+<title>List Order</title>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!------ Include the above in your HEAD tag ---------->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="../asset/css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-	<h1>List Order</h1>
-	<h3>Hello ${sessionScope.staff.name} </h3>
+
+<%
+ 		WareHouseStaff warehousestaff = (WareHouseStaff) session.getAttribute("warehousestaff");
+ 		if (warehousestaff == null) {
+		response.sendRedirect("../");
+		
+		if (session.getAttribute("listO") != null) {
+			Order order = (Order) session.getAttribute("order");
+			Customer customer = order.getCustomer();
+			/* List <Order> listO = (List )session.getAttribute("listO"); */
+			OrderDAO orderDAO = new OrderDAO();
+			List <Order> listO = orderDAO.getListOrderByOrder(order);
+			request.setAttribute("listO",listO );
+		}
+		
+	}
+ 	%>
+ <jsp:include page="../navbar.jsp" />  
+ <p></p> 
+	<h1 class = "pb-5">List Order</h1>
+	
 		<div class="container">
 		
 		<!-- Search and Cart -->
 		<div> 
 		<form action="doSearchOrder.jsp" method="post" class="form-inline my-2 my-lg-0">
-            <input  name="orderID" type="text" placeholder="Order ID..." class="form-control-sm">       
-            <input  name="customer_Username" type="text" placeholder="Customer username..." class="form-control-sm">     
+            <input  name="orderID" type="text" placeholder="Order ID..." class="form-control-sm" value = "${order.id }">       
+            <input  name="customer_Username" type="text" placeholder="Customer username..." class="form-control-sm" value = "${order.customer.username }">     
 			<div class="input-group-append">
                                 <button type="submit" class="btn btn-dark btn-number">
                                     <i class="fa fa-search"></i>
@@ -115,11 +138,8 @@
 		</div>
 		
 		
-		<%
-			ProductDAO productDAO = new ProductDAO();
-			List <Product> listP = productDAO.getHomeProduct();
-			request.setAttribute("listP", listP);
-		%>
+		
+		
 		
 		
 		<!-- Order -->
@@ -132,22 +152,28 @@
 			      <td>Order status</td>
 			      <td>Delivery status</td>
 			      <td>Order Date</td>
+			      <td>Payment Date</td>
 			      <td>Total</td>
 			      <td> </td>
 			    </tr>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td colspan="2">hoangduong</td>
-			      <td>Bill</td>
-			      <td>Delivered</td>
-			      <td>2022-01-01</td>
-			      <td>100$</td>
-			      <td><a href="OrderDetail.jsp?OrderID=${order.id}">Detail</a></td>
-			    </tr>
 			    
+			    <c:forEach items="${listO}" var = "o">	
+			    <tr>
+			      <th scope="row"> ${o.id }</th>
+			      <td colspan="2"> ${o.customer.name}</td>
+			      <td>${o.statusOrder} </td>
+			      <td> ${o.statusDelivery}</td>
+			      <td> ${o.orderDate}</td>
+			      <td> ${o.paymentDate}</td>
+			      <td> ${o.totalAmount}</td>
+			      <td><a href="OrderDetail.jsp?OrderID=${o.id}">Detail</a></td>
+			    </tr>
+			    </c:forEach>
 			  </tbody>
 			</table>
 		</div>
+		
+		
 		<!-- EndOrderList -->
         </div> 
 		

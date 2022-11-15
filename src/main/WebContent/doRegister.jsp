@@ -49,7 +49,7 @@
 		request.setAttribute("pc", pc);
         request.getRequestDispatcher("register.jsp").forward(request, response);
 	}
-	else if (memberDAO.checkMemberExist(mb)!=null) {
+	else if (memberDAO.checkMemberExist(mb) == true) {
 		request.setAttribute("mess", "Account already exists!");
 		request.setAttribute("mb", mb);
 		request.setAttribute("pc", pc);
@@ -57,17 +57,18 @@
 	}
 	else {
 		memberDAO.addMember(mb);
-		mb = memberDAO.checkMemberExist(mb); //cap nhat mb tu DB them id
+		memberDAO.checkMemberExist(mb); //cap nhat mb tu DB them id
 		
 		PaymentCardDAO paymentCardDAO = new PaymentCardDAO();
 		paymentCardDAO.addPaymentCard(pc);
 		pc = paymentCardDAO.getPaymentCardByCardNumber(pc); //cap nhat mb tu DB them id
 
 		CustomerDAO customerDAO = new CustomerDAO();
-		Customer customer = new Customer(pc);
+		Customer customer = new Customer(mb, pc);
 		customerDAO.addCustomer(mb, pc);
-
-		session.setAttribute("customer", mb);
-        response.sendRedirect("Customer\\CustomerHome.jsp");
+		
+		session.setAttribute("member", mb);
+		session.setAttribute("customer", customer); 
+        response.sendRedirect("Customer/CustomerHome.jsp");
 	}
 %>

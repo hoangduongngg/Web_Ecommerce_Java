@@ -15,9 +15,10 @@
 	    java.sql.Date orderDate = new java.sql.Date(millis);  
 System.out.println("Order thanh cong luc: " + orderDate);
 
-		order.setStatusOrder("order");	
+		order.setStatusOrder("order");
 		order.setOrderDate(orderDate);
 		orderDAO.updateOrder(order);
+System.out.println(order);
 		session.setAttribute("order", order);
 		response.sendRedirect("CheckoutPayment.jsp");
 	}

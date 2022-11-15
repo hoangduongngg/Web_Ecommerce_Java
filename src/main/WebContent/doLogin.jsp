@@ -22,6 +22,9 @@
     		 String position = staff.getPosition();
     		 session.setAttribute("staff", staff);
     	 	if (position.equalsIgnoreCase("warehousestaff")) {
+    	 		WareHouseStaff warehousestaff = new WareHouseStaff(staff);
+    	 		session.setAttribute("warehousestaff", warehousestaff);
+    	 		
     	 		response.sendRedirect("WareHouseStaff\\WareHouseStaffHome.jsp");
     	 	}
     	 	else if (position.equalsIgnoreCase("shipper")){
@@ -31,10 +34,11 @@
     	 else {	//La KH
     		 CustomerDAO customerDAO = new CustomerDAO();
     		 Customer customer = customerDAO.getCustomerByID(mb);
-    		 session.setAttribute("member", mb);
+    		 
     		 session.setAttribute("customer", customer);
     		 response.sendRedirect("Customer\\CustomerHome.jsp");
     	 }
      }
-     
+     session.setAttribute("member", mb);
+     session.setMaxInactiveInterval(6000);
  %>

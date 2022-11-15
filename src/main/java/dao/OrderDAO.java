@@ -29,13 +29,17 @@ public class OrderDAO extends DAO{
     
     public List<Order> getListOrderByOrder (Order o) {
         List <Order> listOrder = new ArrayList<>();
-        String sql = "call getListOrderByOrder(?, ?, ?, ?)";
+//        String sql = "call getListOrderByOrder(?, ?, ?, ?)";
+        String sql = "select * from tblorder\r\n"
+                + "where id = ? or\r\n"
+                + "    tblCustomerid = ?";
+        
         try {
             ps= con.prepareStatement(sql);
             ps.setInt(1, o.getId());
             ps.setInt(2, o.getCustomer().getId());
-            ps.setString(3, o.getStatusDelivery());
-            ps.setString(4, o.getStatusOrder());
+//            ps.setString(3, o.getStatusDelivery());
+//            ps.setString(4, o.getStatusOrder());
             rs = ps.executeQuery();
             while (rs.next()) {
                 
@@ -64,27 +68,84 @@ public class OrderDAO extends DAO{
         return listOrder;
     }
     
+//    public void updateOrder (Order order) {
+//        String sql = "call updateOrder(?,?,?,?,?,?,?,?,?,?,?,?)"; // 12 gia tri
+//        
+//        try {
+//            ps = con.prepareStatement(sql);
+//            ps.setInt(1, order.getId());
+//            ps.setString(2, order.getPaymentType());
+//            ps.setDate(3, order.getOrderDate());
+//            ps.setDate(4, order.getPaymentDate());
+//            ps.setDate(5, order.getCancelDate());
+//            ps.setDate(6, order.getDeliveryDate());
+//            ps.setString(7, order.getReasonCancel());
+//            ps.setString(8, order.getStatusDelivery());
+//            ps.setString(9, order.getStatusOrder());
+//            ps.setString(10, order.getNote());
+//            ps.setInt(11, order.getShipper().getId());
+//            ps.setInt(12, order.getSupplier().getId());
+//            ps.executeUpdate();
+//                
+//        } catch (Exception e) {
+//        }
+//    }
+    
     public void updateOrder (Order order) {
-        String sql = "call updateOrder(?,?,?,?,?,?,?,?,?,?,?)"; // 12 gia tri
+        String sql = "update tblorder\r\n"
+                + "set \r\n"
+                + "    paymentType = ?,\r\n"
+                + "    orderDate = ?,\r\n"
+                + "    paymentDate = ?,\r\n"
+//                + "    cancelDate = ?,\r\n"
+//                + "    deliveryDate = ?,\r\n"
+//                + "    reasonCancel = ?,\r\n"
+                + "    statusDelivery = ?,\r\n"
+                + "    statusOrder = ?\r\n"
+//                + "    note = ?,\r\n"
+//                + "    tblSupplierid = ?,\r\n"
+//                + "    tblShipperid = ?\r\n"
+                + "where id = ?";
+        
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, order.getId());
-            ps.setString(2, order.getPaymentType());
-            ps.setDate(3, order.getOrderDate());
-            ps.setDate(4, order.getPaymentDate());
-            ps.setDate(5, order.getCancelDate());
-            ps.setDate(6, order.getDeliveryDate());
-            ps.setString(7, order.getReasonCancel());
-            ps.setString(8, order.getStatusDelivery());
-            ps.setString(9, order.getStatusOrder());
-            ps.setString(10, order.getNote());
-            ps.setInt(11, order.getShipper().getId());
-            ps.setInt(12, order.getSupplier().getId());
+            
+            ps.setString(1, order.getPaymentType());
+            ps.setDate(2, order.getOrderDate());
+            ps.setDate(3, order.getPaymentDate());
+            ps.setDate(4, order.getCancelDate());
+//            ps.setDate(5, order.getDeliveryDate());
+//            ps.setString(6, order.getReasonCancel());
+            ps.setString(4, order.getStatusDelivery());
+            ps.setString(5, order.getStatusOrder());
+//            ps.setString(9, order.getNote());
+//            ps.setInt(10, order.getShipper().getId());
+//            ps.setInt(3, order.getSupplier().getId());
+            
+            ps.setInt(6, order.getId());
             ps.executeUpdate();
                 
         } catch (Exception e) {
         }
     }
+    
+//    public void updateOrder (Order order) {
+//        String sql = "update tblorder\r\n"
+//                + "set \r\n"
+//                + "    statusOrder = ?\r\n"
+//
+//                
+//                + "where id = ?";
+//        
+//        try {
+//            ps = con.prepareStatement(sql);
+//            ps.setInt(2, order.getId());
+//            ps.setString(1, order.getStatusOrder());
+//            ps.executeUpdate();
+//                
+//        } catch (Exception e) {
+//        }
+//    }
     
     public Order getCartByCustomer (Customer customer) {
         String sql = "select * from tblOrder"

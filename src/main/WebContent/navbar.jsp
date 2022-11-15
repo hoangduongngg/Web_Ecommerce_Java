@@ -1,19 +1,25 @@
+<%@page import="model.WareHouseStaff"%>
 <%@page import="model.Customer"%>
 <%@page import="model.Member"%>
 
 	<%
 		Member member = (Member) session.getAttribute("member");
-		Customer customer = (Customer) session.getAttribute("customer");
-	%>
+	Customer customer = new Customer();
+ 	customer = (Customer) session.getAttribute("customer");
+ 	WareHouseStaff warehousestaff = (WareHouseStaff) session.getAttribute("warehousestaff");
+ 	%>
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav" style="background-color: white;">
             <div class="container px-5">
-            	<% if (member != null) { %>
-            		<a class="navbar-brand fw-bold" href="../index.jsp">Super Market</a>
-            	<% } 
-            	else { %>
+            	<% if (member == null) { %>
             		<a class="navbar-brand fw-bold" href="index.jsp">Super Market</a>
-            	<% } %>
+            	<% } 
+            	else if (customer !=null ){ %>
+            		<a class="navbar-brand fw-bold" href="CustomerHome.jsp">Super Market</a>
+            	<% }
+            	else if (warehousestaff != null) { %>
+            		<a class="navbar-brand fw-bold" href="WareHouseStaffHome.jsp">Super Market</a>
+            	<%} %>
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu

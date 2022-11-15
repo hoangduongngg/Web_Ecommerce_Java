@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@page import="model.WareHouseStaff"%>
+<%@page import="model.WareHouse"%>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -13,12 +15,20 @@
         <!-- <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" /> -->
         <!-- Core theme CSS (includes Bootstrap)-->
         
-        <link href="./WEB-INF/asset/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="..//asset/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body id="page-top">
         <!-- Navigation-->
 <%--         <jsp:include page="navbar.jsp" />  
  --%>        
+ 
+ 	<%
+ 		WareHouseStaff warehousestaff = (WareHouseStaff) session.getAttribute("warehousestaff");
+ 		if (warehousestaff == null) {
+		response.sendRedirect("../");
+	}
+ 	%>
+ <jsp:include page="../navbar.jsp" />  
         <!-- Mashead header-->
         <div class="masthead">
             <div class="container px-5">
