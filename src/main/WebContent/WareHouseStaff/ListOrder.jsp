@@ -161,7 +161,7 @@
 			      <td> ${o.orderDate}</td>
 			      <td> ${o.paymentDate}</td>
 			      <td> ${o.totalAmount}</td>
-			      <td><a href="OrderDetail.jsp?orderID=${o.id}">Detail</a></td>
+			      <td><a href="OrderInfo.jsp?orderID=${o.id}">Detail</a></td>
 			    </tr>
 			    </c:forEach>
 			  </tbody>

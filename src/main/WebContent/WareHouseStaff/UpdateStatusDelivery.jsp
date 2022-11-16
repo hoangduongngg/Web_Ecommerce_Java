@@ -46,8 +46,8 @@
 			if (warehousestaff == null) {
 				response.sendRedirect("../");
 			}
-/* 			else {
-				if (request.getParameter("orderID") != null) { */
+ 			else {
+				if (request.getParameter("orderID") != null) { 
 					int orderID = Integer.parseInt(request.getParameter("orderID"));
 					OrderDAO orderDAO = new OrderDAO();
 					Order order = orderDAO.getOrderByID(orderID);
@@ -63,8 +63,8 @@
 					request.setAttribute("customer", customer);
 					request.setAttribute("order", order);
 					request.setAttribute("list_od", list_od);
-/* 				}
-			} */
+ 				}
+			} 
 			
 		%>
 		<!-- Cart -->
@@ -96,48 +96,27 @@
 					    	<td style="color: teal"> ${order.statusOrder}</td>
 					    </tr>
 					    
-						<% if(!order.getStatusOrder().equals("cart")) { %>	<!-- order, WFP, bill -->		    
-						    <tr>
-						    	<th scope="row"> Order date</th>
-						    	<td> ${order.orderDate}</td>
-						    </tr>
-						    
-						    <% if(order.getStatusOrder().equals("bill")) { %>
-						    	<tr>
-							    	<th > Payment date</th>
-							    	<td> ${order.paymentDate}</td>
-							    </tr>
-						    	<tr>
-							    	<th scope="row"> Payment type</th>
-							    	<td> ${order.paymentType}</td>
-							    </tr>
-							    <tr>
-							    	<th scope="row"> Delivery status</th>
-							    	<td style="color: teal"> ${order.statusDelivery}</td>
-							    </tr>
-							    <tr>
-							    	<th scope="row"> Shipper</th>
-							    	<%if (order.getShipper() != null) {%>
-							    		<td style="color: teal"> ${order.shipper.name}</td>
-							    	<% }
-							    	else { %>
-							    		<td>
-							    			<a href = "SelectShipper.jsp?orderID = ${order.id }">Choose shipper!</a>
-							    		</td>
-							    	<%} %>
-							    </tr>
-						    <% } %>
-
-						    
 						
-						<% } %>
 					    
 					    
 					    
 					    
 					  </tbody>
 					</table>
- 					
+					
+					<a href = "UpdateStatusDelivery.jsp?orderID=${order.id }">
+							    				<button style="background-color: #2b6054;" type="button" class="btn btn-primary btn-sm">
+							 Update delivery status
+							    				</button>
+							    			
+					</a>
+					<p></p>
+ 					<a href = "SelectShipper.jsp?orderID = ${order.id }">
+							    				<button style="background-color: #2b6054;" type="button" class="btn btn-primary btn-sm">
+							Choose shipper
+							    				</button>
+							    			
+					</a>
 
                   </div>
 

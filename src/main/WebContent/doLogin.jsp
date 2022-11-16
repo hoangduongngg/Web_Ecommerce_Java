@@ -45,6 +45,3 @@
      
  %>
  
- <session-config>
-     <session-timeout>60</session-timeout>
- </session-config>
