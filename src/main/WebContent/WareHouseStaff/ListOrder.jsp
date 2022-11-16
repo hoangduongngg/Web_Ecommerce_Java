@@ -33,11 +33,10 @@
 		response.sendRedirect("../");
 		
 		if (session.getAttribute("listO") != null) {
-			Order order = (Order) session.getAttribute("order");
-			Customer customer = order.getCustomer();
-			/* List <Order> listO = (List )session.getAttribute("listO"); */
+			Order orderSearch = (Order) session.getAttribute("orderSearch");
+			Customer customer = orderSearch.getCustomer();
 			OrderDAO orderDAO = new OrderDAO();
-			List <Order> listO = orderDAO.getListOrderByOrder(order);
+			List <Order> listO = orderDAO.getListOrderByOrder(orderSearch);
 			request.setAttribute("listO",listO );
 		}
 		
@@ -52,8 +51,8 @@
 		<!-- Search and Cart -->
 		<div> 
 		<form action="doSearchOrder.jsp" method="post" class="form-inline my-2 my-lg-0">
-            <input  name="orderID" type="text" placeholder="Order ID..." class="form-control-sm" value = "${order.id }">       
-            <input  name="customer_Username" type="text" placeholder="Customer username..." class="form-control-sm" value = "${order.customer.username }">     
+            <input  name="orderID" type="text" placeholder="Order ID..." class="form-control-sm" value = "${orderSearch.id }">       
+            <input  name="customer_Username" type="text" placeholder="Customer username..." class="form-control-sm" value = "${orderSearch.customer.username }">     
 			<div class="input-group-append">
                                 <button type="submit" class="btn btn-dark btn-number">
                                     <i class="fa fa-search"></i>
@@ -82,7 +81,7 @@
 						<div class="form-check">
 						  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 						  <label class="form-check-label" for="flexCheckDefault">
-						    Waiting for Payment
+						    WFP
 						  </label>
 						</div>
 						
@@ -136,11 +135,7 @@
                        
         </form>
 		</div>
-		
-		
-		
-		
-		
+
 		
 		<!-- Order -->
 		<div>
@@ -161,12 +156,12 @@
 			    <tr>
 			      <th scope="row"> ${o.id }</th>
 			      <td colspan="2"> ${o.customer.name}</td>
-			      <td>${o.statusOrder} </td>
+			      <td> ${o.statusOrder} </td>
 			      <td> ${o.statusDelivery}</td>
 			      <td> ${o.orderDate}</td>
 			      <td> ${o.paymentDate}</td>
 			      <td> ${o.totalAmount}</td>
-			      <td><a href="OrderDetail.jsp?OrderID=${o.id}">Detail</a></td>
+			      <td><a href="OrderDetail.jsp?orderID=${o.id}">Detail</a></td>
 			    </tr>
 			    </c:forEach>
 			  </tbody>

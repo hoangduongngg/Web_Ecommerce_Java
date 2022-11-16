@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Customer;
+import model.Member;
 import model.Order;
 import model.OrderDetail;
 import model.Product;
+import model.Shipper;
 import model.WareHouse;
 
 public class OrderDAO extends DAO{
@@ -42,22 +44,33 @@ public class OrderDAO extends DAO{
 //            ps.setString(4, o.getStatusOrder());
             rs = ps.executeQuery();
             while (rs.next()) {
-                
-               MemberDAO memberDAO = new MemberDAO();
-               CustomerDAO customerDAO = new CustomerDAO();
-               Customer customer = customerDAO.getCustomerByID(
-                       memberDAO.getMemberByID(rs.getInt("tblCustomerid")));
-                
                Order order = new Order();
                order.setId(rs.getInt("id"));
+               order.setPaymentType(rs.getString("paymentType"));
+               
+               order.setOrderDate(rs.getDate("orderDate"));
+               order.setPaymentDate(rs.getDate("paymentDate"));
+               order.setCancelDate(rs.getDate("cancelDate"));
+               order.setDeliveryDate(rs.getDate("deliveryDate"));
+
+               order.setReasonCancel(rs.getString("reasonCancel"));      
+               order.setStatusDelivery(rs.getString("statusDelivery"));
                order.setStatusOrder(rs.getString("statusOrder"));
                order.setNote(rs.getString("note"));
+               
+               //customer
+               MemberDAO memberDAO = new MemberDAO();
+               CustomerDAO customerDAO = new CustomerDAO();
+               Customer customer = customerDAO.getCustomerByID(memberDAO.getMemberByID(rs.getInt("tblCustomerid")));
                order.setCustomer(customer);
                
+
+               
+               //list OrderDetail
                OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
                List<OrderDetail> list = orderDetailDAO.getOrderDetailByOrder(order);
                order.setListOrderDetail(list);
-               
+               //total
                order.setTotalAmount(order.totalAmountOrder(list));
                
                listOrder.add(order);
@@ -103,7 +116,6 @@ public class OrderDAO extends DAO{
                 + "    statusDelivery = ?,\r\n"
                 + "    statusOrder = ?\r\n"
 //                + "    note = ?,\r\n"
-//                + "    tblSupplierid = ?,\r\n"
 //                + "    tblShipperid = ?\r\n"
                 + "where id = ?";
         
@@ -120,7 +132,6 @@ public class OrderDAO extends DAO{
             ps.setString(5, order.getStatusOrder());
 //            ps.setString(9, order.getNote());
 //            ps.setInt(10, order.getShipper().getId());
-//            ps.setInt(3, order.getSupplier().getId());
             
             ps.setInt(6, order.getId());
             ps.executeUpdate();
@@ -169,6 +180,54 @@ public class OrderDAO extends DAO{
                 order.setTotalAmount(order.totalAmountOrder(list));
                 
                 return order;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+    
+    public Order getOrderByID (int id) {
+        String sql = "select * from tblorder\r\n"
+                + "where id = ?";
+        try {
+            ps= con.prepareStatement(sql);
+            ps.setInt(1, id); String a; 
+            rs = ps.executeQuery();
+            while (rs.next()) {
+               Order order = new Order();
+               order.setId(rs.getInt("id"));
+               order.setPaymentType(rs.getString("paymentType"));
+               
+               order.setOrderDate(rs.getDate("orderDate"));
+               order.setPaymentDate(rs.getDate("paymentDate"));
+               order.setCancelDate(rs.getDate("cancelDate"));
+               order.setDeliveryDate(rs.getDate("deliveryDate"));
+
+               order.setReasonCancel(rs.getString("reasonCancel"));      
+               order.setStatusDelivery(rs.getString("statusDelivery"));
+               order.setStatusOrder(rs.getString("statusOrder"));
+               order.setNote(rs.getString("note"));
+               
+               //customer
+               MemberDAO memberDAO = new MemberDAO();
+               CustomerDAO customerDAO = new CustomerDAO();
+               Customer customer = customerDAO.getCustomerByID(memberDAO.getMemberByID(rs.getInt("tblCustomerid")));
+               order.setCustomer(customer);
+               
+               //shipper
+                        
+//                   Shipper shipper = new Shipper(memberDAO.getMemberByID(rs.getInt("tblShipper")));
+//                   order.setShipper(shipper); 
+               
+               //list OrderDetail
+               OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+               List<OrderDetail> list = orderDetailDAO.getOrderDetailByOrder(order);
+               order.setListOrderDetail(list);
+               //total
+               order.setTotalAmount(order.totalAmountOrder(list));
+               
+               return order;
+              
             }
         } catch (Exception e) {
         }

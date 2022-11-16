@@ -9,25 +9,30 @@
     pageEncoding="ISO-8859-1"%>
 
     <%
-    
-    int orderID = Integer.parseInt(request.getParameter("orderID"));
-    String customer_Username = request.getParameter("customer_Username");
-    
+    int orderID = 0;
+    String customer_Username = "";
+    if (request.getParameter("orderID") != null) {
+    	orderID = Integer.parseInt(request.getParameter("orderID"));
+    }
+    if (request.getParameter("customer_Username") != null) {
+    	customer_Username = request.getParameter("customer_Username");
+    }
+
     MemberDAO memberDAO = new MemberDAO();
     Member mb = memberDAO.getMemberByUsername(customer_Username);
     CustomerDAO customerDAO = new CustomerDAO();
     Customer customer = customerDAO.getCustomerByID(mb);
     
-    Order order = new Order();
-    order.setId(orderID);
-    order.setCustomer(customer);
+    System.out.println(customer);
+    
+    Order orderSearch = new Order();
+    orderSearch.setId(orderID);
+    orderSearch.setCustomer(customer);
     
     OrderDAO orderDAO = new OrderDAO();
-	List <Order> listO = orderDAO.getListOrderByOrder(order);
+	List <Order> listO = orderDAO.getListOrderByOrder(orderSearch);
 	
-
-	session.setAttribute("order", order);
-	session.setAttribute("customer", customer);
+	session.setAttribute("orderSearch", orderSearch);
 	session.setAttribute("listO", listO);
     
 	response.sendRedirect("ListOrder.jsp");
