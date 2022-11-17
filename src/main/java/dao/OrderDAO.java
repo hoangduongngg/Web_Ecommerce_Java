@@ -81,42 +81,16 @@ public class OrderDAO extends DAO{
         return listOrder;
     }
     
-//    public void updateOrder (Order order) {
-//        String sql = "call updateOrder(?,?,?,?,?,?,?,?,?,?,?,?)"; // 12 gia tri
-//        
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(1, order.getId());
-//            ps.setString(2, order.getPaymentType());
-//            ps.setDate(3, order.getOrderDate());
-//            ps.setDate(4, order.getPaymentDate());
-//            ps.setDate(5, order.getCancelDate());
-//            ps.setDate(6, order.getDeliveryDate());
-//            ps.setString(7, order.getReasonCancel());
-//            ps.setString(8, order.getStatusDelivery());
-//            ps.setString(9, order.getStatusOrder());
-//            ps.setString(10, order.getNote());
-//            ps.setInt(11, order.getShipper().getId());
-//            ps.setInt(12, order.getSupplier().getId());
-//            ps.executeUpdate();
-//                
-//        } catch (Exception e) {
-//        }
-//    }
-    
-    public void updateOrder (Order order) {
+    public void updateOrder (Order order) { //ham update cancel ben duoi
         String sql = "update tblorder\r\n"
                 + "set \r\n"
                 + "    paymentType = ?,\r\n"
                 + "    orderDate = ?,\r\n"
                 + "    paymentDate = ?,\r\n"
-//                + "    cancelDate = ?,\r\n"
-//                + "    deliveryDate = ?,\r\n"
-//                + "    reasonCancel = ?,\r\n"
+                + "    cancelDate = null,\r\n"
+                + "    reasonCancel = null,\r\n"
                 + "    statusDelivery = ?,\r\n"
                 + "    statusOrder = ?\r\n"
-//                + "    note = ?,\r\n"
-//                + "    tblShipperid = ?\r\n"
                 + "where id = ?";
         
         try {
@@ -125,13 +99,9 @@ public class OrderDAO extends DAO{
             ps.setString(1, order.getPaymentType());
             ps.setDate(2, order.getOrderDate());
             ps.setDate(3, order.getPaymentDate());
-            ps.setDate(4, order.getCancelDate());
-//            ps.setDate(5, order.getDeliveryDate());
-//            ps.setString(6, order.getReasonCancel());
+
             ps.setString(4, order.getStatusDelivery());
             ps.setString(5, order.getStatusOrder());
-//            ps.setString(9, order.getNote());
-//            ps.setInt(10, order.getShipper().getId());
             
             ps.setInt(6, order.getId());
             ps.executeUpdate();
@@ -139,24 +109,7 @@ public class OrderDAO extends DAO{
         } catch (Exception e) {
         }
     }
-    
-//    public void updateOrder (Order order) {
-//        String sql = "update tblorder\r\n"
-//                + "set \r\n"
-//                + "    statusOrder = ?\r\n"
-//
-//                
-//                + "where id = ?";
-//        
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(2, order.getId());
-//            ps.setString(1, order.getStatusOrder());
-//            ps.executeUpdate();
-//                
-//        } catch (Exception e) {
-//        }
-//    }
+
     
     public Order getCartByCustomer (Customer customer) {
         String sql = "select * from tblOrder"
@@ -234,6 +187,28 @@ public class OrderDAO extends DAO{
         return null;
     }
     
+    public void cancelOrder (Order order) {
+        String sql = "update tblorder\r\n"
+                + "set \r\n"
+                + "    cancelDate = ?,\r\n"
+                + "    reasonCancel = ?,\r\n"
+                + "    statusDelivery = ?\r\n"
+                + "where id = ?";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            
+
+            ps.setDate(1, order.getCancelDate());
+            ps.setString(2, order.getReasonCancel());
+            ps.setString(3, order.getStatusDelivery());
+            
+            ps.setInt(4, order.getId());
+            ps.executeUpdate();
+                
+        } catch (Exception e) {
+        }
+    }
     
     
     

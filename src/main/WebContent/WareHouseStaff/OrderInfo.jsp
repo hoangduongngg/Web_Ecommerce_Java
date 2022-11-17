@@ -47,23 +47,27 @@
 				response.sendRedirect("../");
 			}
  			else {
+ 				Order order = new Order();
 				if (request.getParameter("orderID") != null) { 
 					int orderID = Integer.parseInt(request.getParameter("orderID"));
 					OrderDAO orderDAO = new OrderDAO();
-					Order order = orderDAO.getOrderByID(orderID);
-			System.out.println(order);
-					
-					Customer customer = order.getCustomer();
-					PaymentCard paymentCard = customer.getPaymentCard();
-				
-					OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-					List<OrderDetail> list_od = orderDetailDAO.getOrderDetailByOrder(order);
-					
-					request.setAttribute("paymentCard", paymentCard);
-					request.setAttribute("customer", customer);
-					request.setAttribute("order", order);
-					request.setAttribute("list_od", list_od);
+					order = orderDAO.getOrderByID(orderID);
  				}
+				
+				if (request.getAttribute("order") != null) {
+					order = (Order) request.getAttribute("order");
+				}
+				
+				Customer customer = order.getCustomer();
+				PaymentCard paymentCard = customer.getPaymentCard();
+			
+				OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+				List<OrderDetail> list_od = orderDetailDAO.getOrderDetailByOrder(order);
+				
+				request.setAttribute("paymentCard", paymentCard);
+				request.setAttribute("customer", customer);
+				request.setAttribute("order", order);
+				request.setAttribute("list_od", list_od);
 			} 
 			
 		%>
@@ -77,7 +81,7 @@
 			<!-- Danh sach mat hang -->
             <div class="row">
 
-              <div class="col-lg-8">
+              <div class="col-lg-6">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                   <div>
                   
@@ -136,9 +140,9 @@
 					    
 					  </tbody>
 					</table>
-					<a href = "UpdateStatusDelivery.jsp?orderID =${order.id }">
+					<a href = "UpdateStatusDelivery.jsp?orderID=${order.id }">
 							    				<button style="background-color: #2b6054;" type="button" class="btn btn-primary btn-sm">
-							 Update delivery status
+							 Update delivery status 
 							    				</button>
 							    			
 					</a>
@@ -183,7 +187,7 @@
               </div>
               
               <!-- Thong tin   -->
-              <div class="col-lg-4">
+              <div class="col-lg-6">
 
                 <div class="card text-white rounded-3" style="background-color: #2b6054;">
                   <div class="card-body">

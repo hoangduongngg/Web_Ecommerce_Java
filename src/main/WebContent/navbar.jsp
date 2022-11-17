@@ -18,7 +18,7 @@
             		<a class="navbar-brand fw-bold" href="CustomerHome.jsp">Super Market</a>
             	<% }
             	else if (warehousestaff != null) { %>
-            		<a class="navbar-brand fw-bold" href="WareHouseStaffHome.jsp">Super Market</a>
+            		  <a class="navbar-brand fw-bold" href="WareHouseStaffHome.jsp">Super Market</a>
             	<%} %>
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,9 @@
                 	if (member != null) { %>
 	                    <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
 	                        <li class="nav-item"><a class="nav-link me-lg-3" href="#">Hello, ${member.name}</a></li>
+	                    <%if (warehousestaff != null) { %>
+	                    	<li class="nav-item"><a class="nav-link me-lg-3" href="ListOrder.jsp">List Order</a></li>
+	                    <% } %>
 	                    	<li class="nav-item"><a class="nav-link me-lg-3" href="../doLogOut.jsp" style="opacity: 50%">Logout</a></li>
 	                    </ul>
 	                   
