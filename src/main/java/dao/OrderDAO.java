@@ -210,6 +210,21 @@ public class OrderDAO extends DAO{
         }
     }
     
+    public void selectShipper (Order order) {
+        String sql = "update tblorder\r\n"
+                + "set \r\n"
+                + "    tblShipperid = ?\r\n"
+                + "where id = ?";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, order.getShipper().getId());
+            ps.setInt(2, order.getId());
+            ps.executeUpdate();
+                
+        } catch (Exception e) {
+        }
+    }
     
     
 }

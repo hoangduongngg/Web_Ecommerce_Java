@@ -57,6 +57,9 @@
 				if (request.getAttribute("order") != null) {
 					order = (Order) request.getAttribute("order");
 				}
+				if (session.getAttribute("order")!= null) {
+					order = (Order) session.getAttribute("order");
+				}
 				
 				Customer customer = order.getCustomer();
 				PaymentCard paymentCard = customer.getPaymentCard();
@@ -140,14 +143,14 @@
 					    
 					  </tbody>
 					</table>
-					<a href = "UpdateStatusDelivery.jsp?orderID=${order.id }">
+					<a href = "UpdateStatusDelivery.jsp?orderID=${order.id}">
 							    				<button style="background-color: #2b6054;" type="button" class="btn btn-primary btn-sm">
 							 Update delivery status 
 							    				</button>
 							    			
 					</a>
 					<p></p>
- 					<a href = "SelectShipper.jsp?orderID = ${order.id }">
+ 					<a href = "SelectShipper.jsp?orderID=${order.id}">
 							    				<button style="background-color: #2b6054;" type="button" class="btn btn-primary btn-sm">
 							Choose shipper
 							    				</button>

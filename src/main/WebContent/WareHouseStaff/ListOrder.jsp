@@ -30,8 +30,8 @@
 <%
  		WareHouseStaff warehousestaff = (WareHouseStaff) session.getAttribute("warehousestaff");
  		if (warehousestaff == null) {
-		response.sendRedirect("../");
-		
+			response.sendRedirect("../");
+ 		}
 		if (session.getAttribute("listO") != null) {
 			Order orderSearch = (Order) session.getAttribute("orderSearch");
 			Customer customer = orderSearch.getCustomer();
@@ -40,7 +40,6 @@
 			request.setAttribute("listO",listO );
 		}
 		
-	}
  	%>
  <jsp:include page="../navbar.jsp" />  
  <p></p> 
@@ -59,7 +58,7 @@
                                 </button>
              </div> 
              
-			<div class="container overflow-hidden">
+			<!-- <div class="container overflow-hidden">
 			  <div class="row gx-5">
 			    <div class="col-3">
 			     <div class="p-3 border bg-light">
@@ -121,7 +120,7 @@
 			      </div>
 			    </div>
 			  </div>
-			</div>
+			</div> -->
 			<div>
 				
 			</div>

@@ -8,29 +8,32 @@ import model.Shipper;
 
 public class ShipperDAO extends DAO {
     public ShipperDAO() {
-        
     }
     
     public List<Shipper> getShipperByName(String name) {
-        MemberDAO memberDAO = new MemberDAO();
-        List<Member> listMember = memberDAO.getMemberByName(name);
-        
-        List <Shipper> res = new ArrayList<>();
-        for (int i=0; i<listMember.size(); i++) {
-            String sql = "select * from tblShipper where id = ?" ;
-            try {
-                ps= con.prepareStatement(sql);
-                ps.setInt(1, listMember.get(i).getId());
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                    res.add(new Shipper(listMember.get(i)));
-                }
-            } catch (Exception e) {
+        List< Shipper> list = new ArrayList<>();
+        String sql = "select * from tblMember where name like ?";
+        try {
+            ps= con.prepareStatement(sql);
+            ps.setString(1, "%" + name + "%");
+            rs= ps.executeQuery();
+            while(rs.next()) {
+                Member mb = new Member();
+                mb.setId(rs.getInt("id"));
+                mb.setUsername(rs.getString("username"));
+                mb.setPassword(rs.getString("password"));
+                mb.setName(rs.getString("name"));
+                mb.setAddress(rs.getString("address"));
+                mb.setTel(rs.getString("tel"));
+                mb.setDob(rs.getDate("dob"));
+                mb.setEmail(rs.getString("email"));
+                
+                Shipper shipper = new Shipper(mb);
+                list.add(shipper);
             }
+        } catch (Exception e) {
+            System.out.println(e);
         }
-   
-        return res;
+        return list;
     }
-    
-    
 }
