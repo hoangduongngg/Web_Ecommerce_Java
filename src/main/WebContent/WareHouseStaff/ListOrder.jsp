@@ -50,10 +50,10 @@
 		<!-- Search and Cart -->
 		<div> 
 		<form action="doSearchOrder.jsp" method="post" class="form-inline my-2 my-lg-0">
-            <input  name="orderID" type="text" placeholder="Order ID..." class="form-control-sm" value = "${orderSearch.id }">       
-            <input  name="customer_Username" type="text" placeholder="Customer username..." class="form-control-sm" value = "${orderSearch.customer.username }">     
+<%--             <input  name="orderID" type="text" placeholder="Order ID..." class="form-control-sm" value = "${orderSearch.id }">       
+ --%>            <input  name="customer_Username" type="text" placeholder="Customer username..." class="form-control-sm" value = "${orderSearch.customer.username }">     
 			<div class="input-group-append">
-                                <button type="submit" class="btn btn-dark btn-number">
+                                <button type="submit" class="btn btn-dark btn-number" style="background-color: #2b6054; color: white;">
                                     <i class="fa fa-search"></i>
                                 </button>
              </div> 
@@ -140,9 +140,9 @@
 		<div>
 			<table class="table">
 			  <tbody>
-			    <tr class="table-active">
-			      <th scope="row">ID Order</th>
-			      <td colspan="2" class="table-active">Customer</td>
+			    <tr style="background-color: #2b6054; color: white;" class="table-active">
+			      <th  scope="row">ID Order</th>
+			      <td colspan="2">Customer</td>
 			      <td>Order status</td>
 			      <td>Delivery status</td>
 			      <td>Order Date</td>
@@ -160,7 +160,12 @@
 			      <td> ${o.orderDate}</td>
 			      <td> ${o.paymentDate}</td>
 			      <td> ${o.totalAmount}</td>
-			      <td><a href="OrderInfo.jsp?orderID=${o.id}">Detail</a></td>
+			      <td><a  href="OrderInfo.jsp?orderID=${o.id}">
+			      
+				      <button style="background-color: #2b6054; color: white;" class="btn btn-primary">
+				      		Detail
+				      </button>
+			      </a></td>
 			    </tr>
 			    </c:forEach>
 			  </tbody>
